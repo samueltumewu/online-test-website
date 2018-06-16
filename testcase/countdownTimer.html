@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../lib/flipclock.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="../lib/flipclock.min.js"></script>	
+		<script src="../lib/flipclock.js"></script>	
+		<script src="../lib/factory.js"></script>	
+		<script src="../lib/base.js"></script>	
+		<script type="text/javascript">
+			var clock;
+			var lastTime
+			var waktu = 120;
+			$(document).ready(function() {
+				// Instantiate a coutdown FlipClock
+				
+				$("#stop").click(function(){
+					clock.stop(function(){
+						lastTime = clock.getTime().getTimeSeconds();
+						console.log((lastTime));
+						waktu = Number(lastTime);
+					});
+				});
+				$('#start').click(function(){
+					clock = $('.clock').FlipClock(waktu, {
+						countdown: true
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="clock" style="margin:2em;"></div>
+		<button id="stop">STOP</button>
+		<button id="start">START</button>
+	</body>
+</html>

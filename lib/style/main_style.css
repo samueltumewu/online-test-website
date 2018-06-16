@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,500,700');
+
+body{
+	background: /*url("../../img/slider_background.jpg")*/ no-repeat fixed center; 
+	font-family: 'Roboto', sans-serif;
+}
+.clearFloat{
+	clear: all;
+}
+
+/*
+	===============================================================
+	<NAVIGASI BAR>
+	===============================================================
+*/
+.navbar-custom{
+	background-color: rgba(0,140,140,0.7);
+	margin-top: 30px;
+	margin-left: 5%;	
+	margin-right: 5%;
+	font-weight: bold;
+}
+.bringToCenter{
+	margin-left: auto;
+}
+.bringToCenter li{
+	padding-left: 30px;
+}
+.bringToCenter li a:hover{
+	background-color: rgb(200, 144, 144);
+}
+#LoginForm{
+	padding-left: 25%;
+}
+/*
+	===============================================================
+	</END OF NAVIGASI BAR>
+	===============================================================
+*/
+
+/*
+	===============================================================
+	<HALAMAN MENU REGISTER>
+	===============================================================
+*/
+#menuRegis{
+	color: white;
+	background: url("../../img/tile2.jpg") repeat fixed center;
+	opacity: 0.8;
+	width: 80%;
+}
+#menuRegis h3{
+	text-align: center;
+	background-color: rgba(0,144,0,0.5);
+}
+/*
+	===============================================================
+	</END OF HALAMAN MENU REGISTER>
+	===============================================================
+*/
+
+/*
+	===============================================================
+	<HALAMAN INDEX>
+	===============================================================
+*/
+#home{
+}
+.carousel-caption{
+	background-color: rgba(128,128,128,0.5);
+}
+.margintops{
+	margin-top: 40px;
+}
+@media only screen and (max-width: 600px) {
+    .margintops{
+		margin-top: 100px;
+	}
+}
+/*
+	===============================================================
+	</ END OF HALAMAN INDEX>
+	===============================================================
+*/
+
+/*
+	===============================================================
+	<HALAMAN DASHBOARD_TEACHER>
+	===============================================================
+*/
+
+/*
+	===============================================================
+	</ END OF DASHBOARD_TEACHER>
+	===============================================================
+*/

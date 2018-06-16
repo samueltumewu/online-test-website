@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="form">
+	<div>
+		<input type="text" name="">
+		<button id="btn">ADD</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var fill = '<div><input type="text" name=""><button id="btn">ADD</button></div>';
+		$("#btn").click(function(){
+			alert("TES");
+			$('#form').append(fill);
+		});
+	});
+</script>
+</body>
+</html>
