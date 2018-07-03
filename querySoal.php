@@ -32,7 +32,7 @@ session_start();
 		
 	}
 
-	if(isset($_POST['soal']) && isset($_POST['optradio']) && isset($_POST['valueRadio']) && isset($_POST['judulSoal'])){
+	if(!empty($_POST['soal']) && !empty($_POST['optradio']) && !empty($_POST['valueRadio']) && !empty($_POST['judulSoal'])){
 		// echo "<pre>";
 		// var_dump($_POST['soal']);
 		// var_dump($_POST['optradio']);
@@ -84,9 +84,10 @@ session_start();
 		        ));
 
 
-		echo "SUKSES";
+		header("Location: listSoalForTeacher.php");
 	} else {
-		echo "gagal";
-		// header("Location: dashboard_teacher.php");
+		$stringErrorE = "Semua inputan harus terisi";
+		$_SESSION['ErrPhpE'] = $stringErrorE;
+		header("Location: bikinSoal.php");
 	}
 ?>

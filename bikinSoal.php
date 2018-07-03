@@ -5,6 +5,22 @@ if ($_SESSION['dataLengkap']['type'] != 't') {
 	$_SESSION['ErrPhpA'] = $stringErrorA;
 	header("Location: index.php");
 }
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+if (isset($_SESSION['ErrPhpE'])) {
+	alert($_SESSION['ErrPhpE']);
+	unset($_SESSION['ErrPhpE']);
+}
+
+	require_once "pdo.php";
+	$stmt = $pdo->query("SELECT * FROM soal");
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$judul = Array();
+	foreach ( $rows as $row ) {
+		$judul[] = $row['judul'];
+	}
+	$json_judulSoal = json_encode($judul);
 ?>
 
 <!DOCTYPE html>
@@ -26,15 +42,18 @@ if ($_SESSION['dataLengkap']['type'] != 't') {
 </script>
 </head>
 <body>
-<h1>Welcome <?php echo $_SESSION['dataLengkap']['name']?> <?php echo $_SESSION['dataLengkap']['lastname']?></h1>
 
 <div class="container">
+	<span class="badge badge-pill badge-info"><a href="index.php" class="paging">Home</a></span>
+	 >
+	<span class="badge badge-pill badge-info"><a href="dashboard_teacher.php" class="paging">Dashboard</a></span>
+	<div style="margin-bottom: 20px;"></div>
 	<form class="form-group" id="form" method="post">
 			<label>Judul Soal:</label>
-			<input type="text" name="judulSoal">
-			<label style="margin-left: 20px;">Jumlah Soal: <span id="counterSoal">1</span></label>
+			<input type="text" name="judulSoal" id="inputanJudul">
+			<label style="margin-left: 20px;" class="fixed-label">Jumlah Soal: <span id="counterSoal">1</span></label>
 			<br>
-			<button type="button" id='add' class="btn btn-primary btn-block">Add Question</button>
+			<button type="button" id='add' class="btn btn-primary btn-block sticky-top">Add Question</button>
 			<br>
 			<div class="clearFloat"></div>
 			<label id="label">Nomor 1</label>
@@ -65,8 +84,18 @@ if ($_SESSION['dataLengkap']['type'] != 't') {
 <div>
 
 <script type="text/javascript">
-	var counter = 1;
 	$(document).ready(function(){
+		var counter = 1;
+		var arr_judul = <?php echo $json_judulSoal; ?>;
+		$("#inputanJudul").on('change',function(){
+			var input = $("#inputanJudul").val();
+				for (var i = arr_judul.length - 1; i >= 0; i--) {
+					if (input.toLowerCase() == arr_judul[i].toLowerCase()) {
+						alert('Judul telah ada. masukkan judul yang lain');
+						$('#inputanJudul').val("");
+					}
+				}
+		});
 		$("#add").click(function(){
 			counter = counter + 1;
 			$('#form').append('<br><label>Nomor '+counter+'</label><textarea name="soal['+counter+']" class="form-control" rows="3" id="comment"></textarea><br><div class="form-check"><label class="form-check-label" for="radio1" style="display: block;"><input type="radio" class="form-check-input" name="optradio['+counter+']"><input type="text" name="valueRadio['+counter+'][]" class="form-control" oninput="$(this).updateValue();"></label><label class="form-check-label" for="radio2" style="display: block;"><input type="radio" class="form-check-input" name="optradio['+counter+']"><input type="text" name="valueRadio['+counter+'][]" class="form-control" oninput="$(this).updateValue();"></label><label class="form-check-label" for="radio3" style="display: block;"><input type="radio" class="form-check-input" name="optradio['+counter+']"><input type="text" name="valueRadio['+counter+'][]" class="form-control" oninput="$(this).updateValue();"></label><label class="form-check-label" for="radio4" style="display: block;"><input type="radio" class="form-check-input" name="optradio['+counter+']"><input type="text" name="valueRadio['+counter+'][]" class="form-control" oninput="$(this).updateValue();"></label></div>');

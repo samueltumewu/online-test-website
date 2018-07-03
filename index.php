@@ -19,7 +19,6 @@ else if (isset($_SESSION['ErrPhpB'])) {
 <head>
 	<title>ONLINE TEST</title>
 	<meta charset="utf-8">
-	<link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	 <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -45,14 +44,21 @@ else if (isset($_SESSION['ErrPhpB'])) {
 	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">About Us</a>
+	        <a class="nav-link" href="#aboutUs">About Us</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Log In</a>	      	
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Contact Us</a>
+	        <a class="nav-link" href="#contactUs">Contact Us</a>
 	      </li>
+	      <?php
+		        if (isset($_SESSION['dataLengkap'])) {
+		        	echo '<li class="nav-item">';
+	        		echo '<a class="nav-link" href="logoutAction.php">Log Out</a>';
+	     			echo '</li>';
+		        }
+		  ?>
 	    </ul>
 	  </div>	
 	</nav>
@@ -84,11 +90,11 @@ else if (isset($_SESSION['ErrPhpB'])) {
 		        	if (isset($_SESSION['dataLengkap'])) {
 		        		if ($_SESSION['dataLengkap']['type']=='t') {
 		        	?>
-							<a href="dashboard_teacher.php">Masuk sebagai <?php echo $_SESSION['dataLengkap']['name']?><?php echo $_SESSION['dataLengkap']['lastname']?></a>
+							<a href="dashboard_teacher.php">Masuk sebagai <?php echo $_SESSION['dataLengkap']['name']." "?><?php echo $_SESSION['dataLengkap']['lastname']?></a>
 		        <?php 
 		        		} else {
 		        	?>
-		        			<a href="dashboard_student.php">Masuk sebagai <?php echo $_SESSION['dataLengkap']['name']?><?php echo $_SESSION['dataLengkap']['lastname']?></a>
+		        			<a href="dashboard_student.php">Masuk sebagai <?php echo $_SESSION['dataLengkap']['name']." "?><?php echo $_SESSION['dataLengkap']['lastname']?></a>
 		        <?php
 		        		}
 		        	?>
@@ -150,15 +156,39 @@ else if (isset($_SESSION['ErrPhpB'])) {
 	</div>
 	<!-- END OF HOME CONTENT -->	
 	
-	<div class="container-fluid margintops">
-	    <div class="row">
-	      <div class="col-md-3 bg-warning borders">COL MD 3</div>
-	      <div class="col-md-3 col-xl-6 d-none d-sm-block bg-success borders">COL MD 6</div>
-	      <div class="col-md-3 bg-warning borders">COL MD 3</div>
+	<div class="container margintops" id="aboutUs">
+		<h4 align="center">About Us</h4><hr>
+	    <div class="row" style="margin-bottom: 30px;">
+	      <div class="col-md-3 borders">
+	      	<p>
+	      		Aliquam maximus est quis est rutrum, congue ullamcorper tortor luctus. Sed quis ultricies risus, vitae mollis orci. Proin odio libero, rhoncus ac urna ut, sollicitudin rutrum massa. Curabitur nec justo id magna euismod interdum vehicula at odio. Sed enim nisl, tempus semper lorem semper, consequat tempor diam. Maecenas rhoncus ante nec mi vulputate placerat. Donec gravida auctor libero. In ante risus, gravida vitae sapien ac, auctor pretium odio. Praesent a pulvinar 
+	      	</p>
+	      </div>
+	      <div class="col-md-3 d-none d-md-block borders">
+	      	<img src="img/course_4.jpg">
+	      </div>
+	      <div class="col-md-3 borders" style="border-left: 1px solid black;">
+	      	<p>
+	      		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate, sapien sed tempor convallis, quam nisi elementum purus, at viverra purus diam ut diam. Proin non dapibus tellus. Mauris eleifend nibh ut enim rhoncus, in mattis ante aliquam. Praesent luctus nisi urna. Nulla tempus volutpat nulla, tristique accumsan ipsum scelerisque ac. Nunc ullamcorper urna ut eros vehicula, eget egestas orci tempor. Nulla ut faucibus neque. In eget ultrices massa. Suspendisse potenti. Phasellus malesuada lobortis ipsum, nec porta metus facilisis eget. Sed et dapibus erat. 
+	      	</p>
+	  	  </div>
+	      <div class="col-md-3 d-none d-md-block borders">
+	      	<img src="img/course_9.jpg">
+	      </div>
 	    </div>
-	    <div class="row">
-	      <div class="col-md-6 bg-warning borders">COL MD 6.11</div>
-	      <div class="col-md-6 bg-success borders">COL MD 6.12</div>
+
+	    <h4 align="center" id="contactUs">Contact Us</h4><hr>
+	    <div class="row" style="margin-bottom: 30px;">
+	    	<div class="col-md-6  borders" style="margin-bottom: 30px;">
+	    		<h5>Telp:</h5>
+	    		<h6>+62812345678</h6>
+	    		<br>
+	    		<h5>Email:</h5>
+	    		<h6>onlineTes.customer@info.com</h6>
+	    	</div>
+	      <div class="col-md-6  borders" style="border-left: 1px solid black;">
+	      	<div id="googleMap" style="width:100%;height:300px;"></div>
+	      </div>
 	    </div>
   	</div>
 
@@ -170,7 +200,22 @@ else if (isset($_SESSION['ErrPhpB'])) {
 		});
 	});
 </script>
+<script type="text/javascript">
+	function myMap() {
+		var mapProp= {
+			center:new google.maps.LatLng(-7.33904519,112.73690427),
+			zoom:14,
+		};
+		var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+		var loc = {lat: -7.33904519, lng: 112.73690427};
+		var marker = new google.maps.Marker({position: loc, map: map});
+	}
+</script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=
+AIzaSyCwl_KuhqTT8PwHq9HxzOGnAtADabh_F7s
+&callback=myMap"></script>
+</script>
 
 </body>
 </html>

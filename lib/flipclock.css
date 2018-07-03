@@ -50,8 +50,7 @@
 .flip-clock-wrapper {
   text-align: center;
   position: relative;
-  width: 100%;
-  margin: 1em;
+  margin: 0;
 }
 
 .flip-clock-wrapper:before,
