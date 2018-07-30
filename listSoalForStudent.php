@@ -73,8 +73,9 @@
 				    </thead>
 				    <tbody>
 				    	<?php
+				    	if (isset($judul)) {
 				    		for ($i=0; $i < sizeof($judul); $i++) { 
-				    	    $cek = false;
+				    			$cek = false;
 				    			$j = $i+1;
 				    			echo "<tr>";
 				    			echo "<td>$j</td>";
@@ -101,6 +102,7 @@
 				    			}
 				    			echo "</tr>";
 				    		}
+				    	}
 				    	?>
 				    </tbody>
 				  </table>

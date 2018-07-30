@@ -18,7 +18,7 @@
 <body>
 	<div id="menuRegis" class="container-fluid">
 	<h3>SIGN UP</h3>
-	<form action="regisAction.php" method="post" onsubmit="return submitForm();">
+	<form action="regisAction.php" method="post">
 		<div class="form-group"> 
 			<label>Name</label><br>
 			<input type="text" name="name" placeholder="Jane" class="form-control">			
@@ -79,6 +79,8 @@ foreach ( $rows as $row ) {
 }
 $json_email = json_encode($res_email);
 $json_array = json_encode($result);
+
+$tipe_isset = false;
 ?>
 
 <script type="text/javascript">
@@ -91,16 +93,20 @@ $json_array = json_encode($result);
 		var arr_email = <?php echo $json_email; ?>;
 		
 		$('#username').on('input',function(){
-			for (var i = arr_uname.length - 1; i >= 0; i--) {
-				if ($('#username').val() == arr_uname[i]){	
-					$('#errorA').slideDown();
-					validated_username = false;
-					break;
-				}else{
-					$('#errorA').hide();
-					validated_username = true;
-					$('#errorC').hide();
+			if(arr_uname.length > 0){
+				for (var i = arr_uname.length - 1; i >= 0; i--) {
+					if ($('#username').val() == arr_uname[i]){	
+						$('#errorA').slideDown();
+						validated_username = false;
+						break;
+					}else{
+						$('#errorA').hide();
+						validated_username = true;
+						$('#errorC').hide();
+					}
 				}
+			} else {
+				validated_username = true;
 			}
 		});
 		$('#email').on('change',function(){
@@ -116,18 +122,18 @@ $json_array = json_encode($result);
 				}
 
 				if (!email_identik) {
-					if ($('#email').val().includes('@teacher')){
-						//$('#type').val('t');
-						<?php $_SESSION['tipe'] = 't'; ?>
+					// if ($('#email').val().includes('@teacher')){
+					// 	//$('#type').val('t');
+					// 	<?php $_SESSION['tipe'] = 't';?>
 
-					}else{
-						//$('#type').val('s');
-						<?php 
-							if (!empty($_SESSION['tipe']) && $_SESSION['tipe']==='t') {
-								$_SESSION['tipe'] = 's';
-							} 
-						?>
-					}
+					// }else{
+					// 	//$('#type').val('s');
+					// 	<?php 
+					// 		if (isset($_SESSION['tipe']) === false) {
+					// 			$_SESSION['tipe'] = 's';
+					// 		} 
+					// 	?>
+					// }
 
 					$('#errorD').hide();
 					validated_email=true;
@@ -143,6 +149,7 @@ $json_array = json_encode($result);
 			}
 			if (pattern.test(input)==true) {
 				console.log("YA");
+				validated_email =true;
 				$('#errorE').hide();
 			}else{
 				$('#errorE').slideDown();
@@ -155,6 +162,7 @@ $json_array = json_encode($result);
 			}else{
 				$('#errorB').hide();
 				validated_pwd = true;
+				console.log("pwdTrue");
 				$('#errorC').hide();
 			}
 		});
@@ -165,6 +173,7 @@ $json_array = json_encode($result);
 			}else{
 				$('#errorB').hide();
 				validated_pwd = true;
+				console.log("pwdTrue");
 				$('#errorC').hide();
 			}
 		});
